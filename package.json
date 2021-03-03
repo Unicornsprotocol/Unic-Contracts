@@ -1,5 +1,5 @@
 {
-  "name": "rigelprotocol",
+  "name": "Unicornsprotocol",
   "version": "1.0.0",
   "description": "",
   "main": "truffle-config.js",
@@ -11,13 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sudeepjc/rigelprotocol.git"
+    "url": "git+https://github.com/sudeepjc/unicornsprotocol.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sudeepjc/rigelprotocol/issues"
+    "url": "https://github.com/sudeepjc/unicornsprotocol/issues"
   },
   "homepage": "https://github.com/sudeepjc/rigelprotocol#readme",
   "dependencies": {
