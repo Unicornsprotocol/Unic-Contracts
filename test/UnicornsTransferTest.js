@@ -1,20 +1,20 @@
-const RigelToken = artifacts.require("RigelToken");
+const Unicorns = artifacts.require("Unicorns");
 const { BN, constants, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 const { expect } = require('chai');
 const { ZERO_ADDRESS } = constants;
 
 const { shouldBehaveLikeERC20 } = require('./ERC20.behavior');
 
-contract('RigelToken', function (accounts) {
+contract('Unicorns', function (accounts) {
   const [ initialHolder, recipient, anotherAccount, approvedAccount ] = accounts;
 
-  const name = 'RigelToken';
-  const symbol = 'RGP';
+  const name = 'Unicorns';
+  const symbol = 'UNIC';
 
-  const initialSupply = new BN('20000000000000000000000000');
+  const initialSupply = new BN('40000000000000000000000000');
 
   beforeEach(async function () {
-    this.token = await RigelToken.new(initialHolder);
+    this.token = await Unicorns.new(initialHolder);
   });
 
   it('has a name', async function () {
