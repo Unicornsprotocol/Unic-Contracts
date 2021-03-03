@@ -97,7 +97,7 @@ function shouldBehaveLikeERC20Burnable (errorPrefix, owner, initialBalance, [bur
         await this.token.transfer(burner,initialBalance,{from: owner});
         await this.token.approve(owner, amount, { from: burner });
         await expectRevert(this.token.burn(burner, amount, { from: owner }),
-          'RigelToken: burn amount exceeds balance',
+          'Unicorns: burn amount exceeds balance',
         );
       });
     });
@@ -109,7 +109,7 @@ function shouldBehaveLikeERC20Burnable (errorPrefix, owner, initialBalance, [bur
         await this.token.transfer(burner,allowance.addn(1),{from: owner});
         await this.token.approve(owner, allowance, { from: burner });
         await expectRevert(this.token.burn(burner, allowance.addn(1), { from: owner }),
-          'RigelToken: Check for approved token count failed',
+          'Unicorns: Check for approved token count failed',
         );
       });
     });
