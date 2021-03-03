@@ -262,7 +262,7 @@ contract('Unicorns', function (accounts) {
                   
                   // now secondAccount transfers to third account
                   await expectRevert( this.token.transfer(
-                    thirdAccount, amountToTransfer, { from: secondAccount }),'RigelToken: Insufficient Balance');
+                    thirdAccount, amountToTransfer, { from: secondAccount }),'Unicorns: Insufficient Balance');
                   
                   expect(await this.token.balanceOf(secondAccount)).to.be.bignumber.equal('200');
                   expect(await this.token.unLockedBalanceOf(secondAccount)).to.be.bignumber.equal('0');
@@ -282,7 +282,7 @@ contract('Unicorns', function (accounts) {
                   
                   // now secondAccount transfers to third account
                   await expectRevert( this.token.transfer(
-                    thirdAccount, amountToTransfer, { from: secondAccount }),'RigelToken: Insufficient unlocked tokens');
+                    thirdAccount, amountToTransfer, { from: secondAccount }),'Unicorns: Insufficient unlocked tokens');
                   
                   expect(await this.token.balanceOf(secondAccount)).to.be.bignumber.equal('300');
                   expect(await this.token.unLockedBalanceOf(secondAccount)).to.be.bignumber.equal('0');
