@@ -1,17 +1,17 @@
-const RigelToken = artifacts.require("RigelToken");
+const Unicorns = artifacts.require("Unicorns");
 const { BN, constants, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 const { expect } = require('chai');
 const { ZERO_ADDRESS } = constants;
 
 const { shouldBehaveLikeERC20Burnable, } = require('./ERC20Burnable.behavior');
 
-contract('RigelToken', function (accounts) {
+contract('Unicorns', function (accounts) {
   const [ initialHolder, recipient, anotherAccount ] = accounts;
 
-  const name = 'RigelToken';
-  const symbol = 'RGP';
+  const name = 'Unicorns';
+  const symbol = 'UNIC';
 
-  const initialSupply = new BN('20000000000000000000000000');
+  const initialSupply = new BN('40000000000000000000000000');
 
   beforeEach(async function () {
     this.token = await RigelToken.new(initialHolder);
@@ -20,13 +20,13 @@ contract('RigelToken', function (accounts) {
   describe('burn', function () {
     it('rejects a null account', async function () {
       await expectRevert(this.token.burn(ZERO_ADDRESS, new BN(1)),
-        'RigelToken: burn from the zero address');
+        'Unicorns: burn from the zero address');
     });
 
     describe('for a non zero account', function () {
       it('rejects burning more than balance', async function () {
         await expectRevert(this.token.burn(
-          initialHolder, initialSupply.addn(1)), 'RigelToken: burn amount exceeds balance',
+          initialHolder, initialSupply.addn(1)), 'Unicorns: burn amount exceeds balance',
         );
       });
 
@@ -64,13 +64,13 @@ contract('RigelToken', function (accounts) {
 
     const [ owner, ...otherAccounts ] = accounts;
 
-    shouldBehaveLikeERC20Burnable("RigelToken",owner, initialSupply, otherAccounts);
+    shouldBehaveLikeERC20Burnable("Unicorns",owner, initialSupply, otherAccounts);
 
     describe('burn from non owner account', function() {
 
       it('reverts', async function () {
         await expectRevert(this.token.burn(owner, initialSupply, { from: anotherAccount }),
-          `RigelToken: Only Owner can perform this task`,
+          `Unicorns: Only Owner can perform this task`,
         );
       });
     });
