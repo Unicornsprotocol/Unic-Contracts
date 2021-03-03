@@ -1,4 +1,4 @@
-const RigelToken = artifacts.require("RigelToken");
+const Unicorns = artifacts.require("Unicorns");
 const { BN, constants, expectEvent, expectRevert,time } = require('@openzeppelin/test-helpers');
 const { inTransaction } = require('@openzeppelin/test-helpers/src/expectEvent');
 const { expect } = require('chai');
@@ -6,14 +6,14 @@ const { ZERO_ADDRESS } = constants;
 
 const { shouldBehaveLikeERC20 } = require('./ERC20.behavior');
 
-contract('RigelToken', function (accounts) {
+contract('Unicorns', function (accounts) {
   
   const [ initialHolder, recipient, anotherAccount, approvedAccount ] = accounts;
 
-  const initialSupply = new BN('20000000000000000000000000');
+  const initialSupply = new BN('40000000000000000000000000');
 
   beforeEach(async function () {
-    this.token = await RigelToken.new(initialHolder);
+    this.token = await Unicorns.new(initialHolder);
   });
 
   describe('Token Locking', function () {
@@ -23,7 +23,7 @@ contract('RigelToken', function (accounts) {
         const lockingPeriod = 0;
         const amount = new BN('20');
         await expectRevert(this.token.distributeTokens(
-          recipient, amount, lockingPeriod, { from: anotherAccount }), `RigelToken: Only Owner can perform this task`,
+          recipient, amount, lockingPeriod, { from: anotherAccount }), `Unicorns: Only Owner can perform this task`,
         );
       });      
     });
@@ -148,7 +148,7 @@ contract('RigelToken', function (accounts) {
                 
                   // now secondAccount transfers to third account
                   await expectRevert( this.token.transfer(
-                    thirdAccount, newAmount, { from: secondAccount }),'RigelToken: Insufficient unlocked tokens');
+                    thirdAccount, newAmount, { from: secondAccount }),'Unicorns: Insufficient unlocked tokens');
         
                 });
               });
@@ -245,7 +245,7 @@ contract('RigelToken', function (accounts) {
                 
                   // now secondAccount transfers to third account
                   await expectRevert( this.token.transfer(
-                    thirdAccount, amountToTransfer, { from: secondAccount }),'RigelToken: Insufficient Balance');
+                    thirdAccount, amountToTransfer, { from: secondAccount }),'Unicorns: Insufficient Balance');
 
                   await time.increaseTo(lockingPeriod_1);
 
