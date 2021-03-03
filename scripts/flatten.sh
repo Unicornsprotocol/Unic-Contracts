@@ -1,1 +1,1 @@
-truffle-flattener contracts/RigelToken.sol > flattened_contracts/RigelToken_flat.sol
+truffle-flattener contracts/Unicorns.sol > flattened_contracts/Unicorns_flat.sol
