@@ -279,7 +279,7 @@ abstract contract Context {
     }
 }
 
-// File: contracts/RigelToken.sol
+// File: contracts/UnicToken.sol
 
 /**
  * @dev Implementation of the Owned Contract.
@@ -293,7 +293,7 @@ contract Owned is Context {
     event OwnershipTransferred(address indexed _from, address indexed _to);
 
     modifier onlyOwner {
-        require(_msgSender() == _owner, "RigelToken: Only Owner can perform this task");
+        require(_msgSender() == _owner, "UnicToken: Only Owner can perform this task");
         _;
     }
 
@@ -302,7 +302,7 @@ contract Owned is Context {
     }
 
     function acceptOwnership() public {
-        require(_msgSender() == _newOwner, "RigelToken: Token Contract Ownership has not been set for the address");
+        require(_msgSender() == _newOwner, "UnicToken: Token Contract Ownership has not been set for the address");
         emit OwnershipTransferred(_owner, _newOwner);
         _owner = _newOwner;
         _newOwner = address(0);
@@ -313,7 +313,7 @@ contract Owned is Context {
  * @dev Implementation of the {IBEP20} interface.
  *
  */
-contract RigelToken is IBEP20, Owned {
+contract UnicToken is IBEP20, Owned {
 
     using SafeMath for uint256;
     
@@ -338,10 +338,10 @@ contract RigelToken is IBEP20, Owned {
     uint8 private _decimals;
 
     constructor( address owner ) public {
-        _name = "RigelToken";
-        _symbol = "RGP";
+        _name = "Unicorns";
+        _symbol = "UNIC";
         _decimals = 18;
-        _totalSupply = 20000000 * (10 ** 18);
+        _totalSupply = 40000000 * (10 ** 18);
         _owner = owner;
         _balances[_owner] = _totalSupply;
         _unlockedTokens[_owner] = _totalSupply;
@@ -423,7 +423,7 @@ contract RigelToken is IBEP20, Owned {
      */
     function approve(address spender, uint256 amount) public override returns (bool) {
         
-        require(spender != address(0), "RigelToken: approve to the zero address");
+        require(spender != address(0), "Unicorns: approve to the zero address");
 
         _allowances[_msgSender()][spender] = amount;
         emit Approval(_msgSender(), spender, amount);
@@ -448,7 +448,7 @@ contract RigelToken is IBEP20, Owned {
 
         _transfer(sender,recipient,amount);
 
-        require(amount <= _allowances[sender][_msgSender()],"RigelToken: Check for approved token count failed");
+        require(amount <= _allowances[sender][_msgSender()],"Unicorns: Check for approved token count failed");
         
         _allowances[sender][_msgSender()] = _allowances[sender][_msgSender()].sub(amount);
 
@@ -459,10 +459,10 @@ contract RigelToken is IBEP20, Owned {
 
     function _transfer(address sender, address recipient, uint256 amount) private {
         
-        require(recipient != address(0),"RigelToken: Cannot have recipient as zero address");
-        require(sender != address(0),"RigelToken: Cannot have sender as zero address");
-        require(_balances[sender] >= amount,"RigelToken: Insufficient Balance" );
-        require(_balances[recipient] + amount >= _balances[recipient],"RigelToken: Balance check failed");
+        require(recipient != address(0),"Unicorns: Cannot have recipient as zero address");
+        require(sender != address(0),"Unicorns: Cannot have sender as zero address");
+        require(_balances[sender] >= amount,"Unicorns: Insufficient Balance" );
+        require(_balances[recipient] + amount >= _balances[recipient],"Unicorns: Balance check failed");
         
         // update the unlocked tokens based on time if required
         _updateUnLockedTokens(sender, amount);
@@ -477,10 +477,10 @@ contract RigelToken is IBEP20, Owned {
 
     function _transferLock(address sender, address recipient, uint256 amount) private {
         
-        require(recipient != address(0),"RigelToken: Cannot have recipient as zero address");
-        require(sender != address(0),"RigelToken: Cannot have sender as zero address");
-        require(_balances[sender] >= amount,"RigelToken: Insufficient Balance" );
-        require(_balances[recipient] + amount >= _balances[recipient],"RigelToken: Balance check failed");
+        require(recipient != address(0),"Unicorns: Cannot have recipient as zero address");
+        require(sender != address(0),"Unicorns: Cannot have sender as zero address");
+        require(_balances[sender] >= amount,"Unicorns: Insufficient Balance" );
+        require(_balances[recipient] + amount >= _balances[recipient],"Unicorns: Balance check failed");
 
         _balances[sender] = _balances[sender].sub(amount);
         _balances[recipient] = _balances[recipient].add(amount);
@@ -498,13 +498,13 @@ contract RigelToken is IBEP20, Owned {
      
     function burn(address account, uint256 amount) public onlyOwner {
 
-        require(account != address(0), "RigelToken: burn from the zero address");
+        require(account != address(0), "Unicorns: burn from the zero address");
 
         if( _balances[account] == _unlockedTokens[account]){
-            _unlockedTokens[account] = _unlockedTokens[account].sub(amount, "RigelToken: burn amount exceeds balance");
+            _unlockedTokens[account] = _unlockedTokens[account].sub(amount, "Unicorns: burn amount exceeds balance");
         }
 
-        _balances[account] = _balances[account].sub(amount, "RigelToken: burn amount exceeds balance");
+        _balances[account] = _balances[account].sub(amount, "Unicorns: burn amount exceeds balance");
 
         _totalSupply = _totalSupply.sub(amount);
 
@@ -512,7 +512,7 @@ contract RigelToken is IBEP20, Owned {
 
         if(account != _msgSender()){
             
-            require(amount <= _allowances[account][_msgSender()],"RigelToken: Check for approved token count failed");
+            require(amount <= _allowances[account][_msgSender()],"Unicorns: Check for approved token count failed");
 
             _allowances[account][_msgSender()] = _allowances[account][_msgSender()].sub(amount, "BEP20: burn amount exceeds allowance");
             emit Approval(account, _msgSender(), _allowances[account][_msgSender()]);
@@ -561,7 +561,7 @@ contract RigelToken is IBEP20, Owned {
             }
             // otherwise revert
             else{
-                revert("RigelToken: Insufficient unlocked tokens");
+                revert("Unicorns: Insufficient unlocked tokens");
             }
         }
     }
