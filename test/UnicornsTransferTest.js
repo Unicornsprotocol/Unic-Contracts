@@ -29,7 +29,7 @@ contract('Unicorns', function (accounts) {
     expect(await this.token.decimals()).to.be.bignumber.equal('18');
   });
 
-  shouldBehaveLikeERC20('RigelToken', initialSupply, initialHolder, recipient, anotherAccount);
+  shouldBehaveLikeERC20('Unicorns', initialSupply, initialHolder, recipient, anotherAccount);
 
   describe('Transfer: second to third account', function (){
     
