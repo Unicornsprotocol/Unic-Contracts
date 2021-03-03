@@ -14,7 +14,7 @@ contract('Unicorns', function (accounts) {
   const initialSupply = new BN('40000000000000000000000000');
 
   beforeEach(async function () {
-    this.token = await RigelToken.new(initialHolder);
+    this.token = await Unicorns.new(initialHolder);
   });
 
   describe('burn', function () {
