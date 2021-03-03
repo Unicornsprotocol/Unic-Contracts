@@ -148,7 +148,7 @@ contract Unicorns is IERC20, Owned {
      */
     function approve(address spender, uint256 amount) public override returns (bool) {
         
-        require(spender != address(0), "RigelToken: approve to the zero address");
+        require(spender != address(0), "Unicorns: approve to the zero address");
 
         _allowances[_msgSender()][spender] = amount;
         emit Approval(_msgSender(), spender, amount);
@@ -173,7 +173,7 @@ contract Unicorns is IERC20, Owned {
 
         _transfer(sender,recipient,amount);
 
-        require(amount <= _allowances[sender][_msgSender()],"RigelToken: Check for approved token count failed");
+        require(amount <= _allowances[sender][_msgSender()],"Unicorns: Check for approved token count failed");
         
         _allowances[sender][_msgSender()] = _allowances[sender][_msgSender()].sub(amount);
 
@@ -184,10 +184,10 @@ contract Unicorns is IERC20, Owned {
 
     function _transfer(address sender, address recipient, uint256 amount) private {
         
-        require(recipient != address(0),"RigelToken: Cannot have recipient as zero address");
-        require(sender != address(0),"RigelToken: Cannot have sender as zero address");
-        require(_balances[sender] >= amount,"RigelToken: Insufficient Balance" );
-        require(_balances[recipient] + amount >= _balances[recipient],"RigelToken: Balance check failed");
+        require(recipient != address(0),"Unicorns: Cannot have recipient as zero address");
+        require(sender != address(0),"Unicorns: Cannot have sender as zero address");
+        require(_balances[sender] >= amount,"Unicorns: Insufficient Balance" );
+        require(_balances[recipient] + amount >= _balances[recipient],"Unicorns: Balance check failed");
         
         // update the unlocked tokens based on time if required
         _updateUnLockedTokens(sender, amount);
@@ -223,7 +223,7 @@ contract Unicorns is IERC20, Owned {
      
     function burn(address account, uint256 amount) public onlyOwner {
 
-        require(account != address(0), "RigelToken: burn from the zero address");
+        require(account != address(0), "Unicorns: burn from the zero address");
 
         if( _balances[account] == _unlockedTokens[account]){
             _unlockedTokens[account] = _unlockedTokens[account].sub(amount, "Unicorns: burn amount exceeds balance");
@@ -286,7 +286,7 @@ contract Unicorns is IERC20, Owned {
             }
             // otherwise revert
             else{
-                revert("RigelToken: Insufficient unlocked tokens");
+                revert("Unicorns: Insufficient unlocked tokens");
             }
         }
     }
