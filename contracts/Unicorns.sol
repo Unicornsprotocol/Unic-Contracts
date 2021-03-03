@@ -18,7 +18,7 @@ contract Owned is Context {
     event OwnershipTransferred(address indexed _from, address indexed _to);
 
     modifier onlyOwner {
-        require(_msgSender() == _owner, "RigelToken: Only Owner can perform this task");
+        require(_msgSender() == _owner, "Unicorns: Only Owner can perform this task");
         _;
     }
 
@@ -27,7 +27,7 @@ contract Owned is Context {
     }
 
     function acceptOwnership() public {
-        require(_msgSender() == _newOwner, "RigelToken: Token Contract Ownership has not been set for the address");
+        require(_msgSender() == _newOwner, "Unicorns: Token Contract Ownership has not been set for the address");
         emit OwnershipTransferred(_owner, _newOwner);
         _owner = _newOwner;
         _newOwner = address(0);
@@ -38,7 +38,7 @@ contract Owned is Context {
  * @dev Implementation of the {IERC20} interface.
  *
  */
-contract RigelToken is IERC20, Owned {
+contract Unicorns is IERC20, Owned {
 
     using SafeMath for uint256;
     
@@ -63,10 +63,10 @@ contract RigelToken is IERC20, Owned {
     uint8 private _decimals;
 
     constructor( address owner ) public {
-        _name = "RigelToken";
-        _symbol = "RGP";
+        _name = "Unicorns";
+        _symbol = "UNIC";
         _decimals = 18;
-        _totalSupply = 20000000 * (10 ** 18);
+        _totalSupply = 40000000 * (10 ** 18);
         _owner = owner;
         _balances[_owner] = _totalSupply;
         _unlockedTokens[_owner] = _totalSupply;
@@ -202,10 +202,10 @@ contract RigelToken is IERC20, Owned {
 
     function _transferLock(address sender, address recipient, uint256 amount) private {
         
-        require(recipient != address(0),"RigelToken: Cannot have recipient as zero address");
-        require(sender != address(0),"RigelToken: Cannot have sender as zero address");
-        require(_balances[sender] >= amount,"RigelToken: Insufficient Balance" );
-        require(_balances[recipient] + amount >= _balances[recipient],"RigelToken: Balance check failed");
+        require(recipient != address(0),"Unicorns: Cannot have recipient as zero address");
+        require(sender != address(0),"Unicorns: Cannot have sender as zero address");
+        require(_balances[sender] >= amount,"Unicorns: Insufficient Balance" );
+        require(_balances[recipient] + amount >= _balances[recipient],"Unicorns: Balance check failed");
 
         _balances[sender] = _balances[sender].sub(amount);
         _balances[recipient] = _balances[recipient].add(amount);
@@ -226,10 +226,10 @@ contract RigelToken is IERC20, Owned {
         require(account != address(0), "RigelToken: burn from the zero address");
 
         if( _balances[account] == _unlockedTokens[account]){
-            _unlockedTokens[account] = _unlockedTokens[account].sub(amount, "RigelToken: burn amount exceeds balance");
+            _unlockedTokens[account] = _unlockedTokens[account].sub(amount, "Unicorns: burn amount exceeds balance");
         }
 
-        _balances[account] = _balances[account].sub(amount, "RigelToken: burn amount exceeds balance");
+        _balances[account] = _balances[account].sub(amount, "Unicorns: burn amount exceeds balance");
 
         _totalSupply = _totalSupply.sub(amount);
 
@@ -237,7 +237,7 @@ contract RigelToken is IERC20, Owned {
 
         if(account != _msgSender()){
             
-            require(amount <= _allowances[account][_msgSender()],"RigelToken: Check for approved token count failed");
+            require(amount <= _allowances[account][_msgSender()],"Unicorns: Check for approved token count failed");
 
             _allowances[account][_msgSender()] = _allowances[account][_msgSender()].sub(amount, "ERC20: burn amount exceeds allowance");
             emit Approval(account, _msgSender(), _allowances[account][_msgSender()]);
